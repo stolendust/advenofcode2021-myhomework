@@ -3,15 +3,15 @@ from pathlib import Path
 ###################
 ## part 1
 
-K_FX = "fx"
-K_FY = "fy"
-K_TX = "tx"
+K_FX = "fx"  # x of point_from
+K_FY = "fy"  
+K_TX = "tx"  # x o point_to
 K_TY = "ty"
 K_TYPE = "line_type"
-TYPE_V = "v"
-TYPE_H = "h"
-TYPE_D_UP = "d_up"
-TYPE_D_DOWN = "d_down"
+TYPE_V = "v" # vertical line
+TYPE_H = "h" # horizontal line
+TYPE_D_UP = "d_up" # diagonal line, goes up
+TYPE_D_DOWN = "d_down" # diagonal line, goes down
 K_POINTS = "points"
 
 # input points: "x,y"
