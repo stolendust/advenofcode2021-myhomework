@@ -13,10 +13,8 @@ def first_corrupted(line):
     for char in line:
         if char in CHARS_L: q.append(char) 
         if char not in CHARS_R: continue
-        if q[-1] == CHARS_R[char]:
-            q.pop()
-        else:
-            return char  # corrupted char found
+        if q[-1] != CHARS_R[char]: return char  # corrupted char found
+        q.pop()
     return NULL 
 
 def main_part1(lines):
