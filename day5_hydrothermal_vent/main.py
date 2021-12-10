@@ -80,13 +80,11 @@ def main(lines_str, types):
             points = l[K_POINTS]
             temp = list(set(line_points) & set(points))
             if len(temp) == 0: continue
-            temp.sort()
             overlap = list(set(overlap) | set(temp))
 
         line[K_POINTS] = line_points
         lines_list.append(line)
     print("line count: ", len(lines_list))
-    overlap.sort() 
     return len(overlap)
 
 # main
