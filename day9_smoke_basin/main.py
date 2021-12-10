@@ -84,16 +84,21 @@ def crawl_about(count,map_basin,row,col):
     count = crawl_about(count, map_basin, row+1, col) #down
     return count 
 
-map_basin = deepcopy(screen_map)
-sizes = []
-for row in range(len(screen_map)):
-    for col in range(len(screen_map[row])):
-        if screen_map[row][col] == 0: continue
-        # find the lowest point and crawl about it
-        count = crawl_about(0, map_basin, row, col) 
-        sizes.append(count)
-        print("[%d,%d]=%d, size=%d" % (row, col, heightmap[row][col], count))
+def main_part2(screen_map):
+    global heightmap
+    map_basin = deepcopy(screen_map)
+    sizes = []
+    for row in range(len(screen_map)):
+        for col in range(len(screen_map[row])):
+            if screen_map[row][col] == 0: continue
+            # find the lowest point and crawl about it
+            count = crawl_about(0, map_basin, row, col) 
+            sizes.append(count)
+            print("[%d,%d]=%d, size=%d" % (row, col, heightmap[row][col], count))
 
+    sizes_sorted = list(sorted(sizes, reverse=True))
+    return map_basin, sizes_sorted[0] * sizes_sorted[1] * sizes_sorted[2]
+
+map_basin, result = main_part2(screen_map)
 print_map(map_basin)
-sizes_sorted = list(sorted(sizes, reverse=True))
-print("part 2: ", sizes_sorted[0] * sizes_sorted[1] * sizes_sorted[2])
+print("part 2: ", result)
