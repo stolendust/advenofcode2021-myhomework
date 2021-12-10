@@ -91,10 +91,6 @@ def get_number(digits, entry_map):
 def decode_number(patterns, digits):
     patterns = keys_sorted(patterns, True)
     digits = keys_sorted(digits, False)
-    print("original: ", ORIGIN_K_N)
-    print("original: ", ORIGIN_K_P)
-    print("patterns:", patterns)
-    print("digits:", digits)
 
     entry_map = {}
     matched_dict = {} 
@@ -118,9 +114,6 @@ def decode_number(patterns, digits):
         return 0
 
     number = get_number(digits, entry_map)
-    print("matches:" , matched_dict)
-    print("map:" , entry_map)
-    print("number: ", number)
     return number
 
 patterns = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab".split(" ")

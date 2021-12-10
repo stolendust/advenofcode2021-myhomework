@@ -65,7 +65,7 @@ print_map(screen_map)
 IS_CRAWLED = 2 
 def crawl_about(count,map_basin,row,col):
     global heightmap
-    # stop if point is on the edge
+    # stop if point is out of scope
     if row < 0 or col < 0: return count 
     if row >= (len(heightmap)): return count 
     if col >= (len(heightmap[0])): return count 
