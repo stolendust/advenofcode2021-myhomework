@@ -76,7 +76,6 @@ def main_part1(number_list, board_list):
     won_board_dict = {}
     for number in number_list:
         for i_board in range(len(screen_list)):
-            #mark board
             board = screen_list[i_board]
             mark_board(board, number)
 
