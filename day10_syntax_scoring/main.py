@@ -19,16 +19,16 @@ def first_corrupted(line):
             return char  # corrupted char found
     return NULL 
 
-#with open(Path(__file__).parent/"input_sample.txt", 'r') as file:
-with open(Path(__file__).parent/"input.txt", 'r') as file:
-    lines = file.read().splitlines()
-
 def main_part1(lines):
     points = 0 
     for line in lines:
         char = first_corrupted(line) 
         points += POINTS_CORRUPTED[char] 
     return points
+
+#with open(Path(__file__).parent/"input_sample.txt", 'r') as file:
+with open(Path(__file__).parent/"input.txt", 'r') as file:
+    lines = file.read().splitlines()
 
 points = main_part1(lines)
 print("part1:", points)
