@@ -31,14 +31,11 @@ def adjacent_dots_xy(xy, max_x, max_y):
 
 def dot_flash(grid, dots_xy_flash, flashing_xy):
     dots_xy = adjacent_dots_xy(flashing_xy, len(grid)-1, len(grid[0])-1)
-
     for xy in dots_xy:
         grid[xy[0]][xy[1]] += 1
-
-    for xy in dots_xy:
-        if grid[xy[0]][xy[1]] > MAX and xy not in dots_xy_flash:
-            dots_xy_flash.append(xy)
-            grid, dots_xy_flash = dot_flash(grid, dots_xy_flash, xy)
+        if grid[xy[0]][xy[1]] <= MAX or xy in dots_xy_flash: continue
+        dots_xy_flash.append(xy)
+        grid, dots_xy_flash = dot_flash(grid, dots_xy_flash, xy)
     return grid, dots_xy_flash
 
 def one_step(grid):
@@ -46,9 +43,7 @@ def one_step(grid):
     grid_ret = [list(map(lambda x: x+1, x)) for x in grid]
 
     # find the flashing dots
-    grid_flash = [list(map(lambda x: 1 if x > MAX else 0, x)) for x in grid_ret]
-    filter = lambda x: x == 1
-    dots_xy_flash = dots_xy_filtered(grid_flash, filter)
+    dots_xy_flash = dots_xy_filtered(grid_ret, lambda x: x > MAX)
     if len(dots_xy_flash) == 0: return 0, grid_ret
 
     # do flash
