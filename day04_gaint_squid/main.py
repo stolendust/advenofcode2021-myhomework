@@ -46,8 +46,8 @@ def main_part1(number_list, board_list):
             board_sum = sum_unmarked(board)
             return called_number, board_sum
 
-#with open(Path(__file__).parent/"input_sample.txt", 'r') as file:
-with open(Path(__file__).parent/"input.txt", 'r') as file:
+#with open(Path(__file__).parent/"input.txt", 'r') as file:
+with open(Path(__file__).parent/"input_sample.txt", 'r') as file:
     lines = file.read().splitlines()
 
 #load data

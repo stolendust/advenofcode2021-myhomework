@@ -1,76 +1,39 @@
-import os
-from collections import Counter
+from copy import deepcopy
+from os.path import dirname, abspath
+import sys
+sys.path.append(dirname(dirname(abspath(__file__))))
+import lib
 
 ###########################################
 ## part 1: power consumption
 
-def power_consumption(file):
-    line = file.readline().strip()
-    result = [0] * len(line)
-    line_count = 0 
-    while len(line) > 0:
-        index = 0
-        for bit in line:
-            if bit == "1": result[index] += 1       
-            index += 1
-        line_count += 1
-        line = file.readline().strip()
+grid = lib.grid_load("input_sample.txt")
+grid = lib.grid_load("input.txt")
 
-    gamma = ""
-    epsilon = ""
-    for count in result:
-        if count > line_count / 2:
-            gamma += "1"
-            epsilon += "0"
-        else:
-            gamma += "0"
-            epsilon += "1"
-
-    return int(gamma, 2) *  int(epsilon, 2)
-
-# change working path to the directory this file locates in
-dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path)
-
-file = open("day3_input.txt", 'r')
-ret = power_consumption(file)
-file.close()
-print("power consumption: %d" % ret)
+grid_horizon = lib.grid_switch_row_and_column(grid) 
+m = list(max(k,key=k.count) for k in grid_horizon) 
+l = list(min(k,key=k.count) for k in grid_horizon)
+m_s = list(map(str,m))
+l_s = list(map(str,l))
+print("part1:", int("".join(m_s),2) * int("".join(l_s),2))
 
 ###########################################
 ## part 2: life support rate
 
-def the_common_bit(data_array, index, is_most): 
-    count = 0
-    for data in data_array:
-        if data[index] == "1": count += 1       
-    if is_most:
-        return "1" if count >= len(data_array)/2 else "0"
-    else:
-        return "0" if count >= len(data_array)/2 else "1"
+def shrink(grid, is_most):
+    g = deepcopy(grid)
+    index = 0
+    while len(g) > 1:
+        c = lib.grid_column(g, index)
+        if is_most:
+            b = 1 if sum(c) >= len(c)/2 else 0
+        else:
+            b = 0 if sum(c) >= len(c)/2 else 1
+        g = list(filter(lambda l: l[index] == b, g))
+        index += 1
 
-def search_data(data_array, index, is_most):
-    if len(data_array) == 0 or index >= len(data_array[0]):
-        print("DATA IS WRONG!!!")
-        return
+    if len(g) == 0: return 0
+    l_s = list(map(str,g[0]))
+    return int("".join(l_s), 2)
 
-    bit = the_common_bit(data_array, index, is_most)
-    filtered_data = []
-    for data in data_array:
-        if data[index] == bit:
-            print("FOUND: " + filtered_data[0])
-            filtered_data.append(data) 
-    if len(filtered_data) == 1: 
-        return filtered_data[0]
-    return search_data(filtered_data, index + 1, is_most) 
-
-file = open("input.txt", 'r')
-lines = file.read().splitlines()
-file.close()
-
-#search for oxygen
-oxygen_rate = search_data(lines, 0, True)
-#search for co2 
-co2_rate = search_data(lines, 0, False)
-life_support_rate = int(oxygen_rate, 2) * int(co2_rate, 2)
-print("life support rate: %d" % life_support_rate)
+print("part2: ", shrink(grid, True) * shrink(grid, False))

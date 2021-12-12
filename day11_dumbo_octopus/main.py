@@ -1,20 +1,12 @@
-import os,sys
 from copy import deepcopy
+from os.path import dirname, abspath
+import sys
+sys.path.append(dirname(dirname(abspath(__file__))))
+import lib
 
 ###################
 ## part 1
 MAX = 9
-
-def print_grid(data_grid):
-    print(" ")
-    for l in data_grid:
-        list(map(lambda x: print("%3d" % x, end=""), l))
-        print("")
-
-def load_grid_from_file(file_name):
-    with open(os.path.join(sys.path[0], file_name), "r") as file:
-        lines = file.read().splitlines()
-    return [list(map(int,x)) for x in lines]
 
 def dots_xy_filtered(grid, lambda_filter):
     dots_xy = []
@@ -62,8 +54,8 @@ def main_part1(grid, steps):
         count += count_step
     return count
 
-grid = load_grid_from_file("input_sample.txt")
-grid = load_grid_from_file("input.txt")
+grid = lib.grid_load("input_sample.txt")
+grid = lib.grid_load("input.txt")
 count = main_part1(grid, 100)
 print("part1:", count)
 
