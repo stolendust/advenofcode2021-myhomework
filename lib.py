@@ -16,3 +16,6 @@ def grid_column(grid, i_col):
 
 def grid_switch_row_and_column(grid):
     return list(zip(*grid))
+
+def grid_sum(grid):
+    return sum([sum(l) for l in grid])

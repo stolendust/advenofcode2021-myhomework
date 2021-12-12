@@ -62,16 +62,10 @@ print("part1:", count)
 ##############################
 ## part 2
 
-def is_all_flashed(grid):
-    grid_sum = 0
-    for l in grid:
-        grid_sum += sum(l)
-    return grid_sum == 0
-
 def main_part2(grid, steps):
     for i in range(steps):
         count_step,grid = one_step(grid)
-        if is_all_flashed(grid): return i + 1
+        if 0 == lib.grid_sum(grid): return i + 1
     return 0 
 
 step = main_part2(grid, 1000000000)
