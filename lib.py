@@ -5,6 +5,7 @@ def grid_print(data_grid):
     for l in data_grid:
         list(map(lambda x: print("%4s" % x, end=""), l))
         print("")
+    return data_grid
 
 def grid_load(file_name):
     with open(os.path.join(sys.path[0], file_name), "r") as file:
@@ -19,3 +20,7 @@ def grid_switch_row_and_column(grid):
 
 def grid_sum(grid):
     return sum([sum(l) for l in grid])
+
+def load_input(file_name):
+    with open(os.path.join(sys.path[0], file_name), "r") as file:
+        return file.read().splitlines()

@@ -16,7 +16,7 @@ def compare_lines(line, line_next):
     diff = list(map(sub, line, line_next))
     return list(map(lambda x: 1 if x < 0 else 0, diff))  # if bigger or equal, it's 0 
 
-def compare_in_line(line, screen):
+def compare_within_line(line, screen):
     # insert and append a dummy item before and after the data, making the comparision smooth
     # find the bigger location in line and mark it as False
     line_temp = [MAX_HEIGHT] + line.copy() + [MAX_HEIGHT]
@@ -40,7 +40,7 @@ def main_part1(heightmap):
         screen_next = compare_lines(tempmap[i], tempmap[i+1])
         screen = list(map(lambda x,y: x & y, screen_prev, screen_next))
 
-        screen = compare_in_line(tempmap[i],screen)
+        screen = compare_within_line(tempmap[i],screen)
         screen_map.append(screen)
         count += screen.count(1)
         risk += sum(list(map(mul, screen, tempmap[i]))) + screen.count(1)

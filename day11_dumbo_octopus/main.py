@@ -21,13 +21,13 @@ def adjacent_dots_xy(xy, max_x, max_y):
     ret = list(filter(lambda xy: xy[0] >= 0 and xy[1] >= 0 and xy[0] <= max_x and xy[1] <= max_y, xy_all))
     return ret
 
-def dot_flash(grid, dots_xy_flash, flashing_xy):
-    dots_xy = adjacent_dots_xy(flashing_xy, len(grid)-1, len(grid[0])-1)
-    for xy in dots_xy:
-        grid[xy[0]][xy[1]] += 1
-        if grid[xy[0]][xy[1]] <= MAX or xy in dots_xy_flash: continue
-        dots_xy_flash.append(xy)
-        grid, dots_xy_flash = dot_flash(grid, dots_xy_flash, xy)
+def dot_flash(grid, dots_xy_flash, flash_xy):
+    dots_xy = adjacent_dots_xy(flash_xy, len(grid)-1, len(grid[0])-1)
+    for x,y in dots_xy:
+        grid[x][y] += 1
+        if grid[x][y] <= MAX or (x,y) in dots_xy_flash: continue
+        dots_xy_flash.append((x,y))
+        grid, dots_xy_flash = dot_flash(grid, dots_xy_flash, (x,y))
     return grid, dots_xy_flash
 
 def one_step(grid):

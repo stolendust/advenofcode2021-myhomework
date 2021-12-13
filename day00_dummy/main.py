@@ -1,10 +1,12 @@
-from pathlib import Path
+from copy import deepcopy
+from os.path import dirname, abspath
+import sys
+sys.path.append(dirname(dirname(abspath(__file__))))
+import lib
 
 ###################
 ## part 1
 
-#with open(Path(__file__).parent/"input_sample.txt", 'r') as file:
-with open(Path(__file__).parent/"input.txt", 'r') as file:
-    lines = file.read().splitlines()
-
+lines = lib.load_input("input.txt")
+lines = lib.load_input("input_sample.txt")
     
