@@ -30,8 +30,8 @@ def fold(xys, fold):
             if y > -1  and [x,y] not in ret: ret.append([x,y])
     return ret
 
-lines = lib.load_input("input.txt")
 lines = lib.load_input("input_sample.txt")
+lines = lib.load_input("input.txt")
 
 # load data
 xys, folds = [], []
@@ -45,24 +45,29 @@ for l in lines:
 
 new_xys = deepcopy(xys)
 new_xys = fold(new_xys, folds[0])
-print_paper(new_xys)
 print("part1:", len(new_xys))
 
 #####################
 ## part 2
 
-def find_letter(xys, letters):
-    print(xys)
-    x_l = []
-    x_list = sorted(lib.grid_column(0))
-    x = x_list[0]
-    for i in range(len(x_list)):
-        if x_list[i] > x+1: break
-        x = x_list[i]
+def adjacent_xys(xy, max_x, max_y):
+    x, y = xy[0], xy[1]
+    xy_all = [(x-1,y-1), (x-1,y), (x-1,y+1), (x,y-1), (x,y+1), (x+1,y-1), (x+1,y),(x+1,y+1)]
+    ret = list(filter(lambda xy: xy[0] >= 0 and xy[1] >= 0 and xy[0] <= max_x and xy[1] <= max_y, xy_all))
+    return ret
 
-new_xys = deepcopy(xys)
+def print_letter(xys):
+    max_x,max_y = max(lib.grid_column(xys,0)) + 1, max(lib.grid_column(xys,1)) + 1 
+    grid = [[0 for x in range(max_x)] for y in range(max_y)] # creat two dimention array 
+    for xy in xys:
+        grid[xy[1]][xy[0]] = " #" 
+
+    for l in grid:
+        list(map(lambda x: print(x, end="") if x  else print("  ", end=""), l))
+        print("")
+
+folded_xys = deepcopy(xys)
 for f in folds:
-    new_xys = fold(new_xys, folds[0])
+    folded_xys = fold(folded_xys, f)
 
-letters = []
-find_letter(xys, letters)
+print_letter(folded_xys)
