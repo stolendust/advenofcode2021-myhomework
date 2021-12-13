@@ -7,7 +7,7 @@ def load_input(file_name):
 def grid_print(data_grid):
     print(" ")
     for l in data_grid:
-        list(map(lambda x: print("%4s" % x, end=""), l))
+        list(map(lambda x: print("%3s" % x, end=""), l))
         print("")
     return data_grid
 
